@@ -2,51 +2,52 @@ import pygame
 from pygame.locals import *
 import os
 
+from pygame.time import Clock
+
+# initailzation for pygame :: like setup all the things in pygame
 pygame.init()
 
 # start frame for the game
 clock = pygame.time.Clock()
 fbs = 60
 
-screen_width = 864
-screen_height = 936
+# setup for the window 
+SCREEN_WIDTH = 864
+SCREEN_HEIGHT = 936
 
-screen = pygame.display.set_mode((screen_width, screen_height))
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption("welcome in flappy bird game")
 
-# define game variblaes
+# define game variables
 ground_scroll = 0
 scroll_speed = 4
+flying = False
+game_over = False
 
-# Construct the full paths for the images
-img_folder = 'venv/include/img/'
-current_dir = os.getcwd()
+# load images for the game
+current_dir = os.getcwd() 
+img_folder = "/venv/include/img/"
+bg = pygame.image.load(f'{current_dir}{img_folder}bg.png')
+ground_image = pygame.image.load(f'{current_dir}{img_folder}ground.png')
 
-bg_path = os.path.join(current_dir, img_folder, 'bg.png')
-ground_img_path = os.path.join(current_dir, img_folder, 'ground.png')
-
-print(bg_path)
-
-# Load the images
-bg = pygame.image.load(bg_path)
-ground_img = pygame.image.load(ground_img_path)
-
-pygame.display.set_caption('Flappy Bird')
 run = True
 while run:
-
     clock.tick(fbs)
-
-    # display bg and grouwnd image
+    
+    # display the images for the background
     screen.blit(bg, (0,0))
-    screen.blit(ground_img, (ground_scroll, 768))
-    ground_scroll -= scroll_speed
-    if abs(ground_scroll) > 35:
-        ground_scroll = 0
+    screen.blit(ground_image ,(ground_scroll, 768))
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                run = False
 
     pygame.display.update()
-
 pygame.quit()
+
+
+
+
