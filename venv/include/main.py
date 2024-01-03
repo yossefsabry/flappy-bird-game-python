@@ -22,8 +22,6 @@ scroll_speed = 4
 flying = False
 game_over = False
 
-# add changes in git
-
 # load images for the game
 current_dir = os.getcwd()
 img_folder = "/venv/include/img/"
